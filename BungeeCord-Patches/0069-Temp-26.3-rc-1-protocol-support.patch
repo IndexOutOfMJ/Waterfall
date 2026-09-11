@@ -1,21 +1,21 @@
-From 0575950aa506138ce0ceac64e2f0a47f1cac17f8 Mon Sep 17 00:00:00 2001
+From e5112843f617a4b5b5bc3c7de5641c45906e59cd Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Fri, 4 Sep 2026 22:24:49 +0200
-Subject: [PATCH] Temp: 26.3-pre-3 protocol support
+Subject: [PATCH] Temp: 26.3-rc-1 protocol support
 
 Adds MINECRAFT_26_3 behind the existing net.md_5.bungee.protocol.snapshot
-flag, using the snapshot protocol number (0x40000000 | 335) as upstream does
+flag, using the snapshot protocol number (0x40000000 | 336) as upstream does
 during a pre-release cycle, and remaps the packets whose ids moved.
 
 Relative to 26.2, 26.3 inserts post_effects into both the configuration and
-game clientbound tables, swing_animation into the game clientbound table, and,
-as of pre-3, add_transient_block at game clientbound 0x25. That last one sits
-low enough to shift almost the whole table, so 25 of the game clientbound
-packets we register move, on top of the 7 configuration ones. Serverbound is
-unaffected for us, as the punch/swing shuffle sits in the 0x2E-0x3F window we
-do not register in, and CustomClickAction at 0x44 is above it. Every id was
-checked against the registration order in GameProtocols and
-ConfigurationProtocols rather than the protocol summary.
+game clientbound tables, swing_animation into the game clientbound table, and
+add_transient_block at game clientbound 0x25. That last one sits low enough to
+shift almost the whole table, so 25 of the game clientbound packets we register
+move, on top of the 7 configuration ones. Serverbound is unaffected for us, as
+the punch/swing shuffle sits in the 0x2E-0x3F window we do not register in, and
+CustomClickAction at 0x44 is above it. Every id was checked against the
+registration order in GameProtocols and ConfigurationProtocols rather than the
+protocol summary.
 
 CommonPlayerSpawnInfo, which Login and Respawn both embed, is the one packet
 payload change. gameType moved from a byte to a var int, and previousGameType
@@ -35,6 +35,10 @@ backend throws ArrayIndexOutOfBoundsException. 26.3 likewise adds a
 post_effects suggestion provider; those are keyed by name rather than index
 and unknown names are rejected outright, so it is registered as a dummy for
 every version.
+
+rc-1 is a protocol number bump only: nothing under network/ changed between
+pre-3 and rc-1, and the argument type and suggestion provider registries are
+untouched, so only the constant moves.
 
 This is temporary and should be dropped once upstream adds 26.3 support.
 
@@ -374,14 +378,14 @@ index b6779092..896466ec 100644
  
              TO_SERVER.registerPacket(
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java b/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
-index 31d04a0e..089a56ee 100644
+index 31d04a0e..98c607cb 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
 @@ -56,6 +56,7 @@ public class ProtocolConstants
      public static final int MINECRAFT_1_21_11 = 774;
      public static final int MINECRAFT_26_1 = 775;
      public static final int MINECRAFT_26_2 = 776;
-+    public static final int MINECRAFT_26_3 = 1073742159;
++    public static final int MINECRAFT_26_3 = 1073742160;
      public static final List<String> SUPPORTED_VERSIONS;
      public static final List<Integer> SUPPORTED_VERSION_IDS;
  
