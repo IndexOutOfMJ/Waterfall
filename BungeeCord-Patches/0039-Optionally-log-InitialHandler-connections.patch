@@ -1,4 +1,4 @@
-From 2389a3e70b4d4836d2d0d9c00864f2658ce3ac55 Mon Sep 17 00:00:00 2001
+From ef8ec8a53bc603797db6067aae3f4671c0ac87de Mon Sep 17 00:00:00 2001
 From: Gabriele C <sgdc3.mail@gmail.com>
 Date: Thu, 8 Feb 2018 19:10:52 +0100
 Subject: [PATCH] Optionally log InitialHandler connections
@@ -23,10 +23,10 @@ index 6141128b..e0baca9c 100644
       * The supported versions
       *
 diff --git a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
-index ef44d334..4ff8da6d 100644
+index b049f1b1..944119ba 100644
 --- a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
 +++ b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
-@@ -9,6 +9,13 @@ import java.io.File;
+@@ -8,6 +8,13 @@ import java.io.File;
  
  public class WaterfallConfiguration extends Configuration {
  
@@ -40,15 +40,15 @@ index ef44d334..4ff8da6d 100644
      /**
       * The supported versions displayed to the client
       * <p>Default is a comma separated list of supported versions. For example 1.8.x, 1.9.x, 1.10.x</p>
-@@ -40,6 +47,7 @@ public class WaterfallConfiguration extends Configuration {
+@@ -39,6 +46,7 @@ public class WaterfallConfiguration extends Configuration {
          super.load();
          YamlConfig config = new YamlConfig(new File("waterfall.yml"));
          config.load(false); // Load, but no permissions
 +        logInitialHandlerConnections = config.getBoolean( "log_initial_handler_connections", logInitialHandlerConnections );
-         gameVersion = config.getString("game_version", "").isEmpty() ? Joiner.on(", ").join(ProtocolConstants.SUPPORTED_VERSIONS) : config.getString("game_version", "");
+         gameVersion = config.getString("game_version", "").isEmpty() ? ProtocolConstants.SUPPORTED_VERSIONS.get(0) + "-" + ProtocolConstants.SUPPORTED_VERSIONS.get(ProtocolConstants.SUPPORTED_VERSIONS.size() - 1) : config.getString("game_version", "");
          useNettyDnsResolver = config.getBoolean("use_netty_dns_resolver", useNettyDnsResolver);
          // Throttling options
-@@ -47,6 +55,11 @@ public class WaterfallConfiguration extends Configuration {
+@@ -46,6 +54,11 @@ public class WaterfallConfiguration extends Configuration {
          disableModernTabLimiter = config.getBoolean("disable_modern_tab_limiter", disableModernTabLimiter);
      }
  
@@ -61,7 +61,7 @@ index ef44d334..4ff8da6d 100644
      public String getGameVersion() {
          return gameVersion;
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-index 40d2e6c8..31cdbe48 100644
+index e650fa34..57c0fa20 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 @@ -395,7 +395,10 @@ public class InitialHandler extends PacketHandler implements PendingConnection
@@ -77,5 +77,5 @@ index 40d2e6c8..31cdbe48 100644
                  ch.setProtocol( Protocol.LOGIN );
  
 -- 
-2.49.0
+2.43.0
 

@@ -1,4 +1,4 @@
-From f9d61f440534e8e20c80304a879e97ea9a5348c9 Mon Sep 17 00:00:00 2001
+From 49bac706af12b3152b880c199a772ccfcd40aadc Mon Sep 17 00:00:00 2001
 From: Troy Frew <fuzzy_bot@arenaga.me>
 Date: Wed, 29 Jun 2016 13:56:57 -0500
 Subject: [PATCH] Configurable server version in ping response
@@ -23,13 +23,11 @@ index edbae4ea..749059ab 100644
  
      /**
 diff --git a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
-index 91743f01..111404fb 100644
+index 91743f01..0211e581 100644
 --- a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
 +++ b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
-@@ -1,12 +1,20 @@
- package io.github.waterfallmc.waterfall.conf;
+@@ -2,11 +2,18 @@ package io.github.waterfallmc.waterfall.conf;
  
-+import com.google.common.base.Joiner;
  import net.md_5.bungee.conf.Configuration;
  import net.md_5.bungee.conf.YamlConfig;
 +import net.md_5.bungee.protocol.ProtocolConstants;
@@ -47,11 +45,11 @@ index 91743f01..111404fb 100644
      /*
       * Throttling options
       * Helps prevent players from overloading the servers behind us
-@@ -26,11 +34,17 @@ public class WaterfallConfiguration extends Configuration {
+@@ -26,11 +33,17 @@ public class WaterfallConfiguration extends Configuration {
          super.load();
          YamlConfig config = new YamlConfig(new File("waterfall.yml"));
          config.load(false); // Load, but no permissions
-+        gameVersion = config.getString("game_version", "").isEmpty() ? Joiner.on(", ").join(ProtocolConstants.SUPPORTED_VERSIONS) : config.getString("game_version", "");
++        gameVersion = config.getString("game_version", "").isEmpty() ? ProtocolConstants.SUPPORTED_VERSIONS.get(0) + "-" + ProtocolConstants.SUPPORTED_VERSIONS.get(ProtocolConstants.SUPPORTED_VERSIONS.size() - 1) : config.getString("game_version", "");
          // Throttling options
          tabThrottle = config.getInt("throttling.tab_complete", tabThrottle);
          disableModernTabLimiter = config.getBoolean("disable_modern_tab_limiter", disableModernTabLimiter);
@@ -79,5 +77,5 @@ index 6384b739..2a20964e 100644
  
      @Override
 -- 
-2.51.0
+2.43.0
 

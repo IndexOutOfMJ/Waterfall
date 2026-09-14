@@ -1,4 +1,4 @@
-From 8a74d6c9d80c7b7639a3746b1bd88c8cbfea6662 Mon Sep 17 00:00:00 2001
+From 8df11f49fd7eac950aca41834b5d4b99c147f477 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Mon, 14 Jan 2019 03:35:21 +0000
 Subject: [PATCH] Provide an option to disable entity metadata rewriting
@@ -26,10 +26,10 @@ index e0baca9c..f3bced0a 100644
 +    boolean isDisableEntityMetadataRewrite();
  }
 diff --git a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
-index 4ff8da6d..e860214f 100644
+index 944119ba..6a33f355 100644
 --- a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
 +++ b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
-@@ -42,6 +42,8 @@ public class WaterfallConfiguration extends Configuration {
+@@ -41,6 +41,8 @@ public class WaterfallConfiguration extends Configuration {
      private int tabThrottle = 1000;
      private boolean disableModernTabLimiter = true;
  
@@ -38,7 +38,7 @@ index 4ff8da6d..e860214f 100644
      @Override
      public void load() {
          super.load();
-@@ -53,6 +55,7 @@ public class WaterfallConfiguration extends Configuration {
+@@ -52,6 +54,7 @@ public class WaterfallConfiguration extends Configuration {
          // Throttling options
          tabThrottle = config.getInt("throttling.tab_complete", tabThrottle);
          disableModernTabLimiter = config.getBoolean("disable_modern_tab_limiter", disableModernTabLimiter);
@@ -46,7 +46,7 @@ index 4ff8da6d..e860214f 100644
      }
  
      @Override
-@@ -79,4 +82,9 @@ public class WaterfallConfiguration extends Configuration {
+@@ -78,4 +81,9 @@ public class WaterfallConfiguration extends Configuration {
      public boolean isDisableModernTabLimiter() {
          return disableModernTabLimiter;
      }

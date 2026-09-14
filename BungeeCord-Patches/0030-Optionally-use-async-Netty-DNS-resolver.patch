@@ -1,4 +1,4 @@
-From e35e26dffddb1261db7652db81610f2b58f95736 Mon Sep 17 00:00:00 2001
+From 180d9eac23488723249d8a36fd0e149879fea7a0 Mon Sep 17 00:00:00 2001
 From: Tux <write@imaginarycode.com>
 Date: Wed, 21 Dec 2016 03:13:03 -0500
 Subject: [PATCH] Optionally use async Netty DNS resolver
@@ -24,7 +24,7 @@ index 749059ab..6141128b 100644
  
      /**
 diff --git a/proxy/pom.xml b/proxy/pom.xml
-index 315f5f91..60d82065 100644
+index 87c8da58..9b30a1b2 100644
 --- a/proxy/pom.xml
 +++ b/proxy/pom.xml
 @@ -35,6 +35,18 @@
@@ -47,10 +47,10 @@ index 315f5f91..60d82065 100644
              <groupId>io.netty</groupId>
              <artifactId>netty-handler</artifactId>
 diff --git a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
-index 111404fb..ef44d334 100644
+index 0211e581..b049f1b1 100644
 --- a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
 +++ b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
-@@ -15,6 +15,12 @@ public class WaterfallConfiguration extends Configuration {
+@@ -14,6 +14,12 @@ public class WaterfallConfiguration extends Configuration {
       */
      private String gameVersion;
  
@@ -63,15 +63,15 @@ index 111404fb..ef44d334 100644
      /*
       * Throttling options
       * Helps prevent players from overloading the servers behind us
-@@ -35,6 +41,7 @@ public class WaterfallConfiguration extends Configuration {
+@@ -34,6 +40,7 @@ public class WaterfallConfiguration extends Configuration {
          YamlConfig config = new YamlConfig(new File("waterfall.yml"));
          config.load(false); // Load, but no permissions
-         gameVersion = config.getString("game_version", "").isEmpty() ? Joiner.on(", ").join(ProtocolConstants.SUPPORTED_VERSIONS) : config.getString("game_version", "");
+         gameVersion = config.getString("game_version", "").isEmpty() ? ProtocolConstants.SUPPORTED_VERSIONS.get(0) + "-" + ProtocolConstants.SUPPORTED_VERSIONS.get(ProtocolConstants.SUPPORTED_VERSIONS.size() - 1) : config.getString("game_version", "");
 +        useNettyDnsResolver = config.getBoolean("use_netty_dns_resolver", useNettyDnsResolver);
          // Throttling options
          tabThrottle = config.getInt("throttling.tab_complete", tabThrottle);
          disableModernTabLimiter = config.getBoolean("disable_modern_tab_limiter", disableModernTabLimiter);
-@@ -45,6 +52,11 @@ public class WaterfallConfiguration extends Configuration {
+@@ -44,6 +51,11 @@ public class WaterfallConfiguration extends Configuration {
          return gameVersion;
      }
  
@@ -175,5 +175,5 @@ index 0bfcc94e..9756589e 100644
 +    // Waterfall End
  }
 -- 
-2.51.0
+2.43.0
 
