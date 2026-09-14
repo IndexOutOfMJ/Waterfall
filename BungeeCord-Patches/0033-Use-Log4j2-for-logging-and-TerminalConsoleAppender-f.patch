@@ -1,4 +1,4 @@
-From 29ff12beedfac72dbd5d8da7ce3c29981fefbdfe Mon Sep 17 00:00:00 2001
+From 4d668a1dc893549b611ff9010408cc2be6493c5b Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Fri, 22 Sep 2017 12:46:47 +0200
 Subject: [PATCH] Use Log4j2 for logging and TerminalConsoleAppender for
@@ -231,7 +231,7 @@ index 00000000..cfd039cd
 +    </Loggers>
 +</Configuration>
 diff --git a/pom.xml b/pom.xml
-index 35c4f077..5edd72e5 100644
+index 0fc41cfa..6de62421 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -58,14 +58,15 @@
@@ -253,7 +253,7 @@ index 35c4f077..5edd72e5 100644
          <module>nbt</module>
      </modules>
 @@ -96,6 +97,7 @@
-         <lombok.version>1.18.46</lombok.version>
+         <lombok.version>1.18.48</lombok.version>
          <maven.compiler.release>17</maven.compiler.release>
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 +        <log4j2.version>2.25.3</log4j2.version>

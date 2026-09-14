@@ -1,14 +1,14 @@
-From da21252556490ebb32f23ab611473555f45e18c3 Mon Sep 17 00:00:00 2001
+From 67bfc524b71bd00216e26013d1122d5471ea2a83 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Fri, 16 Apr 2021 06:29:28 +0100
 Subject: [PATCH] ServerConnectRequest#sendFeedback
 
 
 diff --git a/api/src/main/java/net/md_5/bungee/api/ServerConnectRequest.java b/api/src/main/java/net/md_5/bungee/api/ServerConnectRequest.java
-index c81b0a4e..d21370be 100644
+index 08f348bb..fee15c33 100644
 --- a/api/src/main/java/net/md_5/bungee/api/ServerConnectRequest.java
 +++ b/api/src/main/java/net/md_5/bungee/api/ServerConnectRequest.java
-@@ -68,6 +68,14 @@ public class ServerConnectRequest
+@@ -67,6 +67,14 @@ public class ServerConnectRequest
       */
      @Setter
      private boolean retry;
@@ -23,7 +23,7 @@ index c81b0a4e..d21370be 100644
  
      /**
       * Class that sets default properties/adds methods to the lombok builder
-@@ -77,5 +85,6 @@ public class ServerConnectRequest
+@@ -76,5 +84,6 @@ public class ServerConnectRequest
      {
  
          private int connectTimeout = ProxyServer.getInstance().getConfig().getServerConnectTimeout();

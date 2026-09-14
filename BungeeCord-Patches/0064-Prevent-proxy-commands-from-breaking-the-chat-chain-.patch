@@ -1,4 +1,4 @@
-From e3724c1024e32657cc14462e7276f936208b334b Mon Sep 17 00:00:00 2001
+From 2840bc88ba72bea7f29f143dcf155db5b50d9d47 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Sun, 15 Oct 2023 00:36:38 +0100
 Subject: [PATCH] Prevent proxy commands from breaking the chat chain system
@@ -19,10 +19,10 @@ index 6209292e..2afdd1c9 100644
      // Waterfall end
  }
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/Protocol.java b/protocol/src/main/java/net/md_5/bungee/protocol/Protocol.java
-index 622364ff..b6779092 100644
+index 27529770..896466ec 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/Protocol.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/Protocol.java
-@@ -708,6 +708,14 @@ public enum Protocol
+@@ -733,6 +733,14 @@ public enum Protocol
                      map( ProtocolConstants.MINECRAFT_1_21_6, 0x08 ),
                      map( ProtocolConstants.MINECRAFT_26_1, 0x09 )
              );
