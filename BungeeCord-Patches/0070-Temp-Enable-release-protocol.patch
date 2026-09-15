@@ -1,4 +1,4 @@
-From bbeaf142d488249c479b9db82e849b0679362e43 Mon Sep 17 00:00:00 2001
+From e2f1144544a49e6ff8086bd0b7f07fdd773f71ae Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Tue, 15 Sep 2026 11:34:38 +0100
 Subject: [PATCH] Temp: Enable release protocol
@@ -12,7 +12,7 @@ index 3944b7d5..12731092 160000
 -Subproject commit 3944b7d59cf50aa144d8bba69809edea072161d4
 +Subproject commit 12731092979c6d07f42da27da673a9f6c7b13586
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java b/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
-index 0b6d8f72..7073ce6e 100644
+index 0b6d8f72..bb9f3dea 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
 @@ -56,7 +56,7 @@ public class ProtocolConstants
@@ -24,7 +24,7 @@ index 0b6d8f72..7073ce6e 100644
      public static final List<String> SUPPORTED_VERSIONS;
      public static final List<Integer> SUPPORTED_VERSION_IDS;
  
-@@ -128,7 +128,8 @@ public class ProtocolConstants
+@@ -128,13 +128,14 @@ public class ProtocolConstants
                  ProtocolConstants.MINECRAFT_1_21_9,
                  ProtocolConstants.MINECRAFT_1_21_11,
                  ProtocolConstants.MINECRAFT_26_1,
@@ -34,6 +34,13 @@ index 0b6d8f72..7073ce6e 100644
          );
  
          if ( SNAPSHOT_SUPPORT )
+         {
+             // supportedVersions.add( "26.2.x" );
+-            supportedVersionIds.add( ProtocolConstants.MINECRAFT_26_3 );
++            // supportedVersionIds.add( ProtocolConstants.MINECRAFT_26_3 );
+         }
+ 
+         SUPPORTED_VERSIONS = supportedVersions.build();
 -- 
 2.55.0
 
